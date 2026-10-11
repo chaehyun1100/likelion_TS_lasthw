@@ -1,12 +1,18 @@
 import { useState, type SubmitEvent } from 'react';
+import type { NewPost } from '../types';
 
 // 실습 3. onAdd props 타입 만들고, 제출 시 onAdd 호출하기
-function PostForm() {
+interface PostFormProps {
+  onAdd:(data: NewPost) => void;
+}
+
+function PostForm({ onAdd }:PostFormProps) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
   const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+    onAdd({ userId: 1, title, body});
     setTitle('');
     setBody('');
   };
